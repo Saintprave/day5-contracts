@@ -1,0 +1,12 @@
+{
+  "name": "avalanche-day2-contracts",
+  "version": "1.0.0",
+  "private": true,
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox-viem": "^3.0.0",
+    "dotenv": "^16.4.0",
+    "hardhat": "^2.22.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}
