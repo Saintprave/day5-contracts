@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import { Wallet, Database, AlertCircle, CheckCircle2, Loader2 } from 'lucide-react';
@@ -119,8 +121,7 @@ export default function SimpleStorageDApp() {
     }
   };
 
-  const handleSetValue = async (e) => {
-    e.preventDefault();
+  const handleSetValue = async () => {
     if (!newValue) return;
 
     setLoading(true);
@@ -144,14 +145,12 @@ export default function SimpleStorageDApp() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
       <div className="container mx-auto px-4 py-8">
-        {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-5xl font-bold text-white mb-4">SimpleStorage DApp</h1>
           <p className="text-blue-200 text-lg">Avalanche Fuji Testnet</p>
           <p className="text-blue-300 text-sm mt-2 break-all">Contract: {CONTRACT_ADDRESS}</p>
         </div>
 
-        {/* Connect Wallet Button */}
         {!account ? (
           <div className="max-w-md mx-auto">
             <button
@@ -164,7 +163,6 @@ export default function SimpleStorageDApp() {
           </div>
         ) : (
           <div className="max-w-2xl mx-auto space-y-6">
-            {/* Account Info */}
             <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
               <div className="flex items-center gap-3 mb-4">
                 <Wallet className="w-5 h-5 text-green-400" />
@@ -179,7 +177,6 @@ export default function SimpleStorageDApp() {
               )}
             </div>
 
-            {/* Current Value */}
             <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
               <div className="flex items-center gap-3 mb-4">
                 <Database className="w-5 h-5 text-blue-400" />
@@ -196,7 +193,6 @@ export default function SimpleStorageDApp() {
               </button>
             </div>
 
-            {/* Set Value Form */}
             <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
               <h2 className="text-xl font-semibold text-white mb-4">Update Value</h2>
               {!isOwner && (
@@ -205,7 +201,7 @@ export default function SimpleStorageDApp() {
                   <p className="text-yellow-200 text-sm">Only the contract owner can update the value</p>
                 </div>
               )}
-              <form onSubmit={handleSetValue} className="space-y-4">
+              <div className="space-y-4">
                 <input
                   type="number"
                   value={newValue}
@@ -215,7 +211,7 @@ export default function SimpleStorageDApp() {
                   disabled={loading || !isOwner}
                 />
                 <button
-                  type="submit"
+                  onClick={handleSetValue}
                   disabled={loading || !newValue || !isOwner}
                   className="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 disabled:from-gray-500 disabled:to-gray-600 disabled:cursor-not-allowed text-white font-bold py-3 px-6 rounded-lg flex items-center justify-center gap-3 transition-all shadow-lg"
                 >
@@ -228,10 +224,9 @@ export default function SimpleStorageDApp() {
                     'Set Value'
                   )}
                 </button>
-              </form>
+              </div>
             </div>
 
-            {/* Transaction Status */}
             {txStatus && (
               <div className={`p-4 rounded-xl border ${
                 txStatus.includes('success') 
@@ -244,7 +239,6 @@ export default function SimpleStorageDApp() {
               </div>
             )}
 
-            {/* Contract Info */}
             <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
               <h3 className="text-lg font-semibold text-white mb-3">Contract Owner</h3>
               <p className="text-blue-200 break-all text-sm">{owner || 'Loading...'}</p>
@@ -252,7 +246,6 @@ export default function SimpleStorageDApp() {
           </div>
         )}
 
-        {/* Footer */}
         <div className="text-center mt-12 text-blue-300 text-sm">
           <p>Make sure you're connected to Avalanche Fuji Testnet</p>
           <a 
