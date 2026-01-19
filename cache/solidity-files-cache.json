@@ -1,8 +1,8 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "D:\\avalanche-day2-smart-contracts\\contracts\\SimpleStorage.sol": {
-      "lastModificationDate": 1768489631464,
+    "D:\\contracts\\contracts\\SimpleStorage.sol": {
+      "lastModificationDate": 1768576070545,
       "contentHash": "9c07c29b018987696df1cd2eae1eaf98",
       "sourceName": "contracts/SimpleStorage.sol",
       "solcConfig": {
