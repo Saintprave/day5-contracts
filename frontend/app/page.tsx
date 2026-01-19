@@ -42,7 +42,7 @@ export default function SimpleStorageDApp() {
 
   const checkIfWalletConnected = async () => {
     try {
-      const { ethereum } = window;
+      const ethereum = (window as any).ethereum;
       if (!ethereum) {
         setTxStatus('Please install MetaMask!');
         return;
@@ -60,7 +60,7 @@ export default function SimpleStorageDApp() {
 
   const connectWallet = async () => {
     try {
-      const { ethereum } = window;
+      const ethereum = (window as any).ethereum;
       if (!ethereum) {
         alert('Please install MetaMask!');
         return;
@@ -79,14 +79,14 @@ export default function SimpleStorageDApp() {
 
   const switchToAvalancheFuji = async () => {
     try {
-      await window.ethereum.request({
+      await (window as any).ethereum.request({
         method: 'wallet_switchEthereumChain',
         params: [{ chainId: AVALANCHE_FUJI.chainId }],
       });
-    } catch (error) {
+    } catch (error: any) {
       if (error.code === 4902) {
         try {
-          await window.ethereum.request({
+          await (window as any).ethereum.request({
             method: 'wallet_addEthereumChain',
             params: [AVALANCHE_FUJI],
           });
@@ -99,7 +99,7 @@ export default function SimpleStorageDApp() {
 
   const setupContract = async () => {
     try {
-      const provider = new ethers.BrowserProvider(window.ethereum);
+      const provider = new ethers.BrowserProvider((window as any).ethereum);
       const signer = await provider.getSigner();
       const contractInstance = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
       setContract(contractInstance);
